@@ -1,7 +1,7 @@
 # kube-gpt-audit
 Audit your Kubernetes cluster via OpenAI
 
-### Pre-requists
+### Pre-requisite
 1. Kubernetes cluster running and config file exist on your machine
 2. You have OpenAI account setup, and you have API Token
 
