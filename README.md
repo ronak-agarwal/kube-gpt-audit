@@ -18,5 +18,5 @@ Audit your Kubernetes cluster via OpenAI
 
 ### Future Improvements
 
-- Cover audit all Kuberenetes Resources (currently only support deployments)
+- Cover audit for all Kuberenetes Resources (currently only support deployments)
 - Expand the CLI to also support audit for Terraform (HCL templates) as a separate project
