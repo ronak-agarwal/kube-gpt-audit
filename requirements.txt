@@ -1,0 +1,6 @@
+argparse
+colorlog
+kubernetes
+rich
+openai
+typing
