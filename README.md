@@ -13,7 +13,7 @@ Audit your Kubernetes cluster via OpenAI
 
 ### Output
 
-![output](https://github.com/ronak-agarwal/kube-gpt-audit/blob/master/images/output.png)
+![output](https://github.com/ronak-agarwal/kube-gpt-audit/blob/main/images/output.png)
 `
 
 ### Future Improvements
