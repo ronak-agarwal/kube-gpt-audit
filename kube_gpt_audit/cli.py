@@ -29,17 +29,20 @@ if not logger.handlers:
     logger = colorlog.getLogger('log')
     logger.addHandler(handler)
 
-# Define function to recursively remove a key from a dictionary
-def remove_key(d, key):
-    if isinstance(d, dict):
-        for k in list(d.keys()):
-            if k == key:
-                del d[k]
-            else:
-                remove_key(d[k], key)
-    elif isinstance(d, list):
-        for i in range(len(d)):
-            remove_key(d[i], key)
+# Define a function to remove a list of keys from a JSON object
+def remove_keys(obj, keys):
+    if isinstance(obj, dict):
+        # If the object is a dictionary, remove the specified keys
+        for key in keys:
+            if key in obj:
+                del obj[key]
+        # Recursively call the function on the values of the dictionary
+        for k, v in obj.items():
+            remove_keys(v, keys)
+    elif isinstance(obj, list):
+        # If the object is a list, recursively call the function on each element
+        for item in obj:
+            remove_keys(item, keys)
 
 class KubernetesCluster:
     def __init__(self):
@@ -60,13 +63,7 @@ class KubernetesCluster:
         for deployment in deployments:
             if deployment.metadata.name not in BLACKLIST_RESOURCE_HIT_4097_TOKEN:
                 data = json.loads(json.dumps(self.api_client.sanitize_for_serialization(deployment)))
-                remove_key(data, "managedFields")
-                remove_key(data, "status")
-                remove_key(data, "labels")
-                remove_key(data, "annotations")
-                remove_key(data, "creationTimestamp")
-                remove_key(data, "resourceVersion")
-                remove_key(data, "uid")
+                remove_keys(data, ["managedFields","status","creationTimestamp"])
                 audit_result: str = run_audit("deployment", json.dumps(data))
                 print("\n")
                 table_title = f"\U0001f916 Audit for the Kubernetes Deployment => {deployment.metadata.name}"
