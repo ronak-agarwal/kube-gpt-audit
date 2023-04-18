@@ -63,7 +63,7 @@ class KubernetesCluster:
         for deployment in deployments:
             if deployment.metadata.name not in BLACKLIST_RESOURCE_HIT_4097_TOKEN:
                 data = json.loads(json.dumps(self.api_client.sanitize_for_serialization(deployment)))
-                remove_keys(data, ["managedFields","status","creationTimestamp"])
+                remove_keys(data, ["managedFields", "status", "creationTimestamp", "uid", "resourceVersion", "labels", "annotations"])
                 audit_result: str = run_audit("deployment", json.dumps(data))
                 print("\n")
                 table_title = f"\U0001f916 Audit for the Kubernetes Deployment => {deployment.metadata.name}"
